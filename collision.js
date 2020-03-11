@@ -61,19 +61,19 @@ class Vector {
     // e stands for element, so
     // it's basically just element
     // to element addition
-    eAdd(v = new Vector()) {
+    eAdd(v) {
         return new Vector(this.x+v.x,this.y+v.y);
     }
     // element to element subtraction
-    eSubtract(v = new Vector()) {
+    eSubtract(v) {
         return new Vector(this.x-v.x,this.y-v.y);
     }
     // element to element multiplication
-    eMultiply(v = new Vector()) {
+    eMultiply(v) {
         return new Vector(this.x-v.x,this.y-v.y);
     }
     // element to element division
-    eDivide(v = new Vector()) {
+    eDivide(v) {
         return new Vector(this.x-v.x,this.y-v.y);
     }
     // get perpendicular vector by swapping
@@ -138,7 +138,7 @@ class Shape {
     // an object with the min and max 
     // of the projection. NOT THE SAME AS
     // THE VECTOR FUNCTION project()
-    project(axis = new Vector()) {
+    project(axis) {
         let min, max;
         for (let i = 0;i < this.points.length; i++) {
             let p = axis.project(this.points[i]);
@@ -150,13 +150,16 @@ class Shape {
         }
         return {min: min,max: max};
     }
-    static collision(s1 = new Shape, s2 = new Shape) {
+    static collision(s1, s2) {
         let ol;
         let smallestAxis;
         for (let i = 0; i < s1.axes.length; i++) {
+            console.log(s1.axes[i]);
             let axis = s1[i]; // element selected is axis;
+            console.log(axis);
             let p1 = s1.project(axis); // projects the shape s1 onto the axis
             let p2 = s2.project(axis); // projects the shape s2 onto the axis
+            console.log(p1,p2);
             // still need to explain
             let o = overlap(p1, p2);
             console.log(o);
@@ -230,7 +233,7 @@ class Environment {
     }
 }
 
-function overlap(p1 = {min: 0, max: 0}, p2 = {min: 0, max: 0}) {
+function overlap(p1, p2) {
     if (Math.max(p1.min,p2.min) < Math.min(p1.max,p2.max)) {
         return Math.min(p1.max - p1.min, p1.max - p2.min, p2.max - p1.min, p2.max - p2.min);
     }
