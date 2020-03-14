@@ -140,13 +140,15 @@ class Shape {
     // THE VECTOR FUNCTION project()
     project(axis) {
         let min, max;
+        console.log(axis);
         for (let i = 0;i < this.points.length; i++) {
             let p = axis.project(this.points[i]);
             if (!min || p < min) {
                 min = p;
-            } else if (!max || p > max) {
+            };
+            if (!max || p > max) {
                 max = p;
-            }
+            };
         }
         return {min: min,max: max};
     }
@@ -155,7 +157,7 @@ class Shape {
         let smallestAxis;
         for (let i = 0; i < s1.axes.length; i++) {
             console.log(s1.axes[i]);
-            let axis = s1[i]; // element selected is axis;
+            let axis = s1.axes[i]; // element selected is axis;
             console.log(axis);
             let p1 = s1.project(axis); // projects the shape s1 onto the axis
             let p2 = s2.project(axis); // projects the shape s2 onto the axis
@@ -182,7 +184,7 @@ class Shape {
             }
         }
         for (let i = 0; i < s2.axes.length; i++) {
-            let axis = s2[i];
+            let axis = s2.axes[i];
             let p1 = s1.project(axis);
             let p2 = s2.project(axis);
             let o = !overlap(p1, p2)
